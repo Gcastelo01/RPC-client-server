@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package peer;
+
+service PeerServer {
+    rpc Insercao(InsertRequest) returns (InsertResponse);
+    rpc Consulta(ConsultaRequest) returns (ConsultaResponse);
+    rpc Ativacao(AtivacaoRequest) returns (AtivacaoResponse);
+    rpc Termino(TerminoRequest) returns (TerminoResponse);
+}
+
+message InsertRequest {
+    string chave = 1;
+    string conteudo = 2;
+}
+
+message InsertResponse {
+    int32 resultado = 1;
+}
+
+message ConsultaRequest {
+    string chave = 1;
+}
+
+message ConsultaResponse {
+    string conteudo = 1;
+}
+
+message AtivacaoRequest {
+    string servico = 1;
+}
+
+message AtivacaoResponse {
+    string mensagem = 1;
+}
+
+message TerminoRequest {}
+
+message TerminoResponse {
+    string mensagem = 1;
+}
