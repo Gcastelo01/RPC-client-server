@@ -49,7 +49,7 @@ class PeerServer(peerserver_pb2_grpc.PeerServerServicer):
             
             keys_to_register = list(self.chavesEValores.keys())
             
-            id_server = f"localhost:{self.__port}"
+            id_server = f"{socket.getfqdn()}:{self.__port}"
             
             response = self.central.Register(centralserver_pb2.ServerInfo(server_id=id_server, keys=keys_to_register))
 
@@ -85,7 +85,7 @@ def serve():
     
     peerserver_pb2_grpc.add_PeerServerServicer_to_server(peer_server, server)
     
-    server.add_insecure_port(f'localhost:{address}')
+    server.add_insecure_port(f'0.0.0.0:{address}')
     
     server.start()
     stop_event.wait()
