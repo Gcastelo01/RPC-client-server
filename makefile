@@ -1,28 +1,30 @@
-# Defina os nomes dos programas
-CLIENT_PARES = client
-SERV_PARES = server
-SERV_CENTRAL = central_server
-CLIENT_CENTRAL = central_client
+# Makefile para o projeto
 
-# Defina as portas padrão
-PORT_SERV_PARES = 5555
-PORT_SERV_CENTRAL = 6666
+# Comandos para compilar os arquivos .proto
+proto:
+	python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=.  peerserver.proto
+	python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=.  centralserver.proto
 
-# Regras
-all: $(CLIENT_PARES) $(SERV_PARES) $(SERV_CENTRAL) $(CLIENT_CENTRAL)
+# Comandos para limpar arquivos intermediários
+clean:
+	rm *_pb2*.py
 
+# Comando para executar o cliente de pares
+run_cli_pares: proto
+	python3 client.py $(arg)
 
-run_cli_pares:
-    ./$(CLIENT_PARES) $(arg)
+# Comando para executar o servidor de pares (parte 1)
+run_serv_pares_1: proto
+	python3 server.py $(arg)
 
-run_serv_pares_1:
-    ./$(SERV_PARES) $(PORT_SERV_PARES)
+# Comando para executar o servidor de pares (parte 2)
+run_serv_pares_2: proto
+	python3 server.py $(arg) qqcoisa
 
-run_serv_pares_2:
-    ./$(SERV_PARES) $(PORT_SERV_PARES) qqcoisa
+# Comando para executar o servidor centralizador
+run_serv_central: proto
+	python3 centralizador.py $(arg)
 
-run_serv_central:
-    ./$(SERV_CENTRAL) $(PORT_SERV_CENTRAL)
-
-run_cli_central:
-    ./$(CLIENT_CENTRAL) $(arg)
+# Comando para executar o cliente centralizador
+run_cli_central: proto
+	python3 centralClient.py $(arg)
