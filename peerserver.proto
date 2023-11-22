@@ -37,5 +37,5 @@ message AtivacaoResponse {
 message TerminoRequest {}
 
 message TerminoResponse {
-    string mensagem = 1;
+    int32 mensagem = 1;
 }
