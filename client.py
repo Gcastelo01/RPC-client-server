@@ -13,7 +13,7 @@ def run(canal, comando):
         
     elif comando[0] == 'C':
         chave = comando[2:]
-        response = stub.Consulta(peerserver_pb2.ConsultaRequest(chave=chave))
+        response = stub.Consulta(peerserver_pb2.ConsultaRequest(chave=int(chave)))
         print(f"Responsta à consulta: {response.conteudo}")
     
     elif comando[0] == 'A':

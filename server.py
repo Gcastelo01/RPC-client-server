@@ -33,7 +33,7 @@ class PeerServer(peerserver_pb2_grpc.PeerServerServicer):
     
     def Consulta(self, request, context):
         chave = request.chave
-        conteudo = self.chavesEValores.get(chave, -1)
+        conteudo = self.chavesEValores.get(chave, "")
         
         return peerserver_pb2.ConsultaResponse(conteudo=conteudo)
     
