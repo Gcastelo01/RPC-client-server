@@ -10,7 +10,7 @@ service PeerServer {
 }
 
 message InsertRequest {
-    string chave = 1;
+    int32 chave = 1;
     string conteudo = 2;
 }
 
@@ -19,7 +19,7 @@ message InsertResponse {
 }
 
 message ConsultaRequest {
-    string chave = 1;
+    int32 chave = 1;
 }
 
 message ConsultaResponse {
