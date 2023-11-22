@@ -1,4 +1,3 @@
-from __future__ import print_function
 import grpc
 import sys
 import peerserver_pb2_grpc, peerserver_pb2
@@ -9,7 +8,7 @@ def run(canal, comando):
     
     if comando[0] == 'I':
         chave, descricao = comando[2:].split(',', 1)
-        response = stub.Insercao(peerserver_pb2.InsertRequest(chave=chave, conteudo=descricao))
+        response = stub.Insercao(peerserver_pb2.InsertRequest(chave=int(chave), conteudo=descricao))
         print(f"Responsta à inserção: {response}")
         
     elif comando[0] == 'C':
@@ -18,7 +17,8 @@ def run(canal, comando):
         print(f"Responsta à consulta: {response.conteudo}")
     
     elif comando[0] == 'A':
-        identificador_servico = comando[2:].strip()
+        identificador_servico = (comando[2:].strip())
+        
         response = stub.Ativacao(peerserver_pb2.AtivacaoRequest(servico=identificador_servico))
         print(f"Resultado da ativação: {response.mensagem}")
 
